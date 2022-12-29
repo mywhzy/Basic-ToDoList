@@ -1,15 +1,16 @@
 const todoInput = document.getElementById("input-box");
 const todoAdd = document.getElementById("add-btn");
 const todoBox = document.getElementById("list-items");
-const doneBox = document.getElementById("complete-list");
+const doneBox = document.getElementById("done-items");
+const todoCount = document.getElementById("todo-count");
 let itemId = 0;
-let count;
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth() + 1;
-const day = today.getDate();
-document.getElementById("today").innerHTML =
-  "Today is " + year + "/" + month + "/" + day + " •ᴗ•";
+let count = 0;
+
+// Counting To Do Item
+const countTodo = () => {
+  count = todoBox.childElementCount;
+  todoCount.innerText = "남은 할 일: " + count + "개";
+};
 
 // Insert To Do Item
 todoAdd.addEventListener("click", () => {
@@ -32,6 +33,7 @@ todoAdd.addEventListener("click", () => {
     listitem.appendChild(itemdelbtn);
     todoInput.value = "";
     itemId++;
+    countTodo();
   }
 });
 
@@ -46,6 +48,31 @@ todoInput.addEventListener("keypress", (e) => {
 todoBox.addEventListener("dblclick", (e) => {
   if (e.target.tagName === "LI") {
     e.target.classList.toggle("completed");
+    if (e.target.classList.contains("completed")) {
+      if (e.target.children[0].id === "update-btn") {
+        e.target.children[0].classList.toggle("hidebtn");
+      }
+      doneBox.appendChild(e.target);
+      countTodo();
+      console.log(todoBox.childElementCount);
+      console.log(doneBox.childElementCount);
+    }
+  }
+});
+
+// Complete 해제
+doneBox.addEventListener("dblclick", (e) => {
+  if (e.target.tagName === "LI") {
+    e.target.classList.toggle("completed");
+  }
+  if (!e.target.classList.contains("completed")) {
+    if (e.target.children[0].id === "update-btn") {
+      e.target.children[0].classList.toggle("hidebtn");
+    }
+    todoBox.appendChild(e.target);
+    countTodo();
+    console.log(todoBox.childElementCount);
+    console.log(doneBox.childElementCount);
   }
 });
 
@@ -53,6 +80,15 @@ todoBox.addEventListener("dblclick", (e) => {
 todoBox.addEventListener("click", (e) => {
   if (e.target.id === "del-btn") {
     e.target.parentNode.remove();
+    countTodo();
+  }
+});
+
+// Remove Done Item
+doneBox.addEventListener("click", (e) => {
+  if (e.target.id === "del-btn") {
+    e.target.parentNode.remove();
+    countTodo();
   }
 });
 

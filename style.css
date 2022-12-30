@@ -1,5 +1,97 @@
+#top-box {
+  margin: auto;
+  text-align: center;
+  width: 70%;
+  border: 2px solid black;
+  height: 900px;
+  overflow-y: auto;
+  border-style: dashed solid;
+  box-shadow: 3px 4px 10px 1px rgb(167, 167, 167);
+  padding: 0 50px 0 50px;
+}
+
+#title {
+  font-style: italic;
+  margin-bottom: 0;
+  color: rgb(253, 180, 78);
+  border-bottom: 5px double rgb(254, 191, 123);
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+#today {
+  margin-top: 10px;
+}
+
+#todo-count {
+  margin-top: 0;
+  font-size: 15px;
+}
+
+.countColor {
+  color: rgb(181, 50, 252);
+}
+
+#input-box {
+  background-color: none;
+  width: 30%;
+  height: 30px;
+  border-radius: 5px;
+  border: 2px solid black;
+  font-size: 13px;
+  padding-left: 10px;
+  margin-right: 5px;
+}
+
+#input-box:focus {
+  border: 2px solid rgb(253, 194, 112);
+  outline: 0.5px solid rgb(253, 194, 112);
+}
+
+#add-btn {
+  height: 28px;
+  width: 28px;
+  font-size: 16px;
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(255, 182, 79);
+  border-radius: 5px;
+  color: rgb(50, 50, 49);
+}
+
+#add-btn:active {
+  color: rgb(251, 161, 36);
+}
+
 #list-items {
-  width: 60%;
+  margin: auto;
+  text-align: left;
+}
+
+#done-items {
+  margin: auto;
+  text-align: left;
+}
+
+#update-btn {
+  background: none;
+  margin-left: 10px;
+  border-radius: 3px;
+  color: rgb(100, 154, 215);
+  font-weight: bold;
+  border: 1px solid black;
+}
+
+#del-btn {
+  background: none;
+  margin-left: 5px;
+  border-radius: 3px;
+  color: rgb(250, 85, 85);
+  border: 1px solid black;
+}
+
+#new-todo-input {
+  display: block;
+  margin-top: 5px;
 }
 
 .completed {
@@ -21,6 +113,9 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  margin-bottom: 5px;
+  width: 90%;
+  padding-bottom: 2px;
 }
 
 .hidebtn {

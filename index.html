@@ -5,19 +5,21 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h3>To Do List</h3>
-    <h4 id="today"></h4>
-    <h5 id="todo-count">남은 할 일: 0개</h5>
-    <form>
-      <input
-        type="text"
-        name="insert"
-        id="input-box"
-        placeholder="할 일을 입력해주세요."
-      /><input type="button" value="+" id="add-btn" />
-    </form>
-    <ul id="list-items"></ul>
-    <ul id="done-items"></ul>
+    <div id="top-box">
+      <h1 id="title">To Do List</h3>
+      <h4 id="today"></h4>
+      <h5 id="todo-count">남은 할 일: 0개</h5>
+      <form>
+        <input
+          type="text"
+          name="insert"
+          id="input-box"
+          placeholder="할 일을 입력해주세요."
+        /><input type="button" value="+" id="add-btn" />
+      </form>
+      <ul id="list-items"></ul>
+      <ul id="done-items"></ul>
+    </div>
     <script src="./src/date.js"></script>
     <script src="./src/listItem.js"></script>
   </body>

@@ -61,8 +61,6 @@ todoBox.addEventListener("dblclick", (e) => {
       }
       doneBox.appendChild(e.target);
       countTodo();
-      console.log(todoBox.childElementCount);
-      console.log(doneBox.childElementCount);
     }
   }
 });
@@ -78,8 +76,6 @@ doneBox.addEventListener("dblclick", (e) => {
     }
     todoBox.appendChild(e.target);
     countTodo();
-    console.log(todoBox.childElementCount);
-    console.log(doneBox.childElementCount);
   }
 });
 

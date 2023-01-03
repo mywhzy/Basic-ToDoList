@@ -32,11 +32,30 @@
 ├─ index.html
 ├─ src
 │  ├─ date.js // show today's date
-│  └─ listItem.js // control todolist items
+│  └─ todolist // control todolist items
+│     ├─ completeItem.js  // complete to do item
+│     ├─ countingItem.js  // counting to do item
+│     ├─ createItem.js  // create to do item
+│     ├─ deleteItem.js  // delte to do or done item
+│     └─ updateItem.js  // update to do item
 └─ style.css
 ```
 
 **LiveServer를 통해 실행 가능합니다**
+
+---
+
+### 커밋 컨벤션
+
+| 커밋명   | 내용                                |
+| -------- | ----------------------------------- |
+| feat     | 기능 개발                           |
+| fix      | 버그 수정                           |
+| refactor | 코드 또는 폴더 구조 리팩토링        |
+| style    | 코드 변경 없는 수정                 |
+| design   | css와 같은 스타일 및 ui 디자인 변경 |
+| docs     | 단순 문서(read me) 수정             |
+| comment  | 필요한 주석 추가 및 변경            |
 
 ---
 
@@ -45,7 +64,7 @@ _완료된 할 일은 수정이 불가하며 완료 해제 및 삭제만 가능_
 
 ---
 
-피드백 반영 수정된 부분
+**피드백 반영 수정된 부분**
 
 1. 중복 코드 최소화 (함수를 최대한 많이 활용해 중복 코드 분리)
 
@@ -64,13 +83,13 @@ _완료된 할 일은 수정이 불가하며 완료 해제 및 삭제만 가능_
 
 5. list item에서 update 버튼을 children이 아닌 querySelector로 조작하게 변경
 
+6. 기능별 파일 분리 및 폴더 구조 변경
+
 ---
 
 수정 필요한 부분
 
 - update 부분 함수로 분리(event함수 간략화) / parentnode사용과 childnode 사용 다른 방식으로 접근해 줄이기
-
-- 기능별 파일 분리
 
 - typeScript로 변환
 

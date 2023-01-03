@@ -1,7 +1,7 @@
 #top-box {
   margin: auto;
   text-align: center;
-  width: 70%;
+  width: 50%;
   border: 2px solid black;
   height: 900px;
   overflow-y: auto;
@@ -26,6 +26,7 @@
 #todo-count {
   margin-top: 0;
   font-size: 15px;
+  height: 30px;
 }
 
 .countColor {
@@ -34,13 +35,14 @@
 
 #input-box {
   background-color: none;
-  width: 30%;
+  width: 60%;
   height: 30px;
   border-radius: 5px;
   border: 2px solid black;
   font-size: 13px;
   padding-left: 10px;
   margin-right: 5px;
+  margin-bottom: 15px;
 }
 
 #input-box:focus {
@@ -74,11 +76,11 @@
 
 #update-btn {
   background: none;
-  margin-left: 10px;
   border-radius: 3px;
   color: rgb(100, 154, 215);
   font-weight: bold;
   border: 1px solid black;
+  float: right;
 }
 
 #del-btn {
@@ -87,6 +89,8 @@
   border-radius: 3px;
   color: rgb(250, 85, 85);
   border: 1px solid black;
+  float: right;
+  margin-right: 20px;
 }
 
 #new-todo-input {
@@ -96,6 +100,8 @@
 
 .completed {
   text-decoration-line: line-through;
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.593);
   /* 더블클릭 시 파란색 배경 잡힘 방지용 */
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -116,6 +122,8 @@
   margin-bottom: 5px;
   width: 90%;
   padding-bottom: 2px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.091);
 }
 
 .hidebtn {

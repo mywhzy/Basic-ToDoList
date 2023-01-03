@@ -3,12 +3,12 @@ const todoAdd = document.getElementById("add-btn");
 const todoBox = document.getElementById("list-items");
 const doneBox = document.getElementById("done-items");
 const todoCount = document.getElementById("todo-count");
-let itemId = 0;
 let count = 0;
 
 // Counting To Do Item
 const countTodo = () => {
-  count = todoBox.childElementCount;
+  const todoItem = todoBox.querySelectorAll("#todo-item");
+  count = todoItem.length;
   const text = "남은 할 일: " + count + "개 ";
   todoCount.innerText = text;
   if (count > 0) {
@@ -19,113 +19,126 @@ const countTodo = () => {
   }
 };
 
-// Insert To Do Item
-todoAdd.addEventListener("click", () => {
+// create list item update,delete button
+const createBtn = (parentItem) => {
+  const updateBtn = document.createElement("button");
+  const deletebtn = document.createElement("button");
+  const updatebtnValue = document.createTextNode("🖋");
+  const delbtnvalue = document.createTextNode("✖");
+  updateBtn.setAttribute("id", "update-btn");
+  updateBtn.appendChild(updatebtnValue);
+  deletebtn.setAttribute("id", "del-btn");
+  deletebtn.appendChild(delbtnvalue);
+  parentItem.appendChild(deletebtn);
+  parentItem.appendChild(updateBtn);
+};
+
+// create to do item
+const addToDoList = () => {
+  const listitem = document.createElement("li");
+  const listvalue = document.createTextNode(todoInput.value);
+  listitem.setAttribute("id", "todo-item");
+  listitem.appendChild(listvalue);
+  listitem.classList.add("noncompleted");
+  todoBox.appendChild(listitem);
+  createBtn(listitem);
+  todoInput.value = "";
+};
+
+// 할 일 입력창 빈 값인지 검사
+const isCheckedTodoInput = () => {
   if (todoInput.value !== "") {
-    const listitem = document.createElement("li");
-    const listvalue = document.createTextNode(todoInput.value);
-    listitem.appendChild(listvalue);
-    listitem.classList.add("noncompleted");
-    const updateBtn = document.createElement("button");
-    updateBtn.setAttribute("id", "update-btn");
-    const updatebtnValue = document.createTextNode("🖋");
-    updateBtn.appendChild(updatebtnValue);
-    const itemdelbtn = document.createElement("button");
-    itemdelbtn.setAttribute("id", "del-btn");
-    const delbtnvalue = document.createTextNode("✖");
-    itemdelbtn.appendChild(delbtnvalue);
-    itemdelbtn.classList.add("deltebtn");
-    todoBox.appendChild(listitem);
-    listitem.appendChild(updateBtn);
-    listitem.appendChild(itemdelbtn);
-    todoInput.value = "";
-    itemId++;
+    addToDoList();
+    countTodo();
+  } else {
+    alert("내용을 입력해주세요!");
+  }
+};
+
+// to do item 완료 여부 확인 함수
+const isCompleted = (e, itemBox) => {
+  // 수정 중일 때 complete 방지
+  if (e.target.tagName === "LI" && e.target.lastChild.id !== "new-todo-input") {
+    e.target.classList.toggle("completed");
+    if (e.target.classList.contains("completed")) {
+      toggleUpdateBtn(e, itemBox);
+    } else if (!e.target.classList.contains("completed")) {
+      toggleUpdateBtn(e, itemBox);
+    }
+  }
+};
+
+// update 버튼 toggle 함수 (할 일 완료 시 수정 버튼 숨기기 위해)
+const toggleUpdateBtn = (e, itemBox) => {
+  if (e.target.querySelector("#update-btn")) {
+    e.target.querySelector("#update-btn").classList.toggle("hidebtn");
+  }
+  itemBox.appendChild(e.target);
+  countTodo();
+};
+
+// remove list item
+const removeTodoItem = (e) => {
+  if (e.target.id === "del-btn") {
+    e.currentTarget.querySelector("#todo-item").remove();
     countTodo();
   }
+};
+
+// insert to do item - click btn
+todoAdd.addEventListener("click", () => {
+  isCheckedTodoInput();
 });
 
+// insert to do item - click enter
 todoInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     e.preventDefault();
-    todoAdd.click();
+    isCheckedTodoInput();
   }
 });
 
-// Complete To Do Item 이벤트위임이용 부모(ul)->자손(li)
+// Complete To Do Item
 todoBox.addEventListener("dblclick", (e) => {
-  if (e.target.tagName === "LI") {
-    e.target.classList.toggle("completed");
-    if (e.target.classList.contains("completed")) {
-      if (e.target.children[0].id === "update-btn") {
-        e.target.children[0].classList.toggle("hidebtn");
-      }
-      doneBox.appendChild(e.target);
-      countTodo();
-    }
-  }
+  isCompleted(e, doneBox);
 });
 
 // Complete 해제
 doneBox.addEventListener("dblclick", (e) => {
-  if (e.target.tagName === "LI") {
-    e.target.classList.toggle("completed");
-  }
-  if (!e.target.classList.contains("completed")) {
-    if (e.target.children[0].id === "update-btn") {
-      e.target.children[0].classList.toggle("hidebtn");
-    }
-    todoBox.appendChild(e.target);
-    countTodo();
-  }
+  isCompleted(e, todoBox);
 });
 
-// Remove To Do Item 자손(button)->부모(li)
+// Remove To Do Item target과 cuurentTarget의 차이점 알기
 todoBox.addEventListener("click", (e) => {
-  if (e.target.id === "del-btn") {
-    e.target.parentNode.remove();
-    countTodo();
-  }
+  removeTodoItem(e);
 });
 
 // Remove Done Item
 doneBox.addEventListener("click", (e) => {
-  if (e.target.id === "del-btn") {
-    e.target.parentNode.remove();
-    countTodo();
-  }
+  removeTodoItem(e);
 });
 
 // Update To Do Item text
 todoBox.addEventListener("click", (e) => {
-  const newText = document.createElement("input");
-  newText.setAttribute("id", "new-todo-input");
-  let nowText = e.target.parentNode.innerText.substring(
+  const newTextInput = document.createElement("input");
+  const nowText = e.target.parentNode.innerText.substring(
     0,
-    e.target.parentNode.innerText.length - 3
+    e.target.parentNode.innerText.length - 4
   );
-  newText.setAttribute("value", nowText);
-  // innerText 변경 후 수정,삭제 버튼 지워지는 이슈 수정위해 추가
-  const itemdelBtn = document.createElement("button");
-  const delbtnValue = document.createTextNode("X");
-  itemdelBtn.setAttribute("id", "del-btn");
-  itemdelBtn.appendChild(delbtnValue);
-  const updateBtn = document.createElement("button");
-  updateBtn.setAttribute("id", "update-btn");
-  const updatebtnValue = document.createTextNode("🖋");
-  updateBtn.appendChild(updatebtnValue);
+  newTextInput.setAttribute("id", "new-todo-input");
+  newTextInput.setAttribute("value", nowText);
+  newTextInput.setAttribute("placeholder", "내용을 입력해 수정해주세요.");
   // 클릭 이벤트(수정 인풋 창 오픈) 중복 방지
   if (
     e.target.id === "update-btn" &&
     e.target.parentNode.lastChild.id !== "new-todo-input"
   ) {
-    e.target.parentNode.appendChild(newText);
-    newText.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
+    e.target.parentNode.appendChild(newTextInput);
+    newTextInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter" && newTextInput.value !== "") {
         const temp = e.target.parentNode; // e.target.parentNode.innerText값 변경 후에 기존 e.target 없어지는 이유에서 변수 사용
-        e.preventDefault();
         e.target.parentNode.innerText = e.target.value;
-        temp.appendChild(updateBtn);
-        temp.appendChild(itemdelBtn);
+        createBtn(temp);
       }
     });
   }

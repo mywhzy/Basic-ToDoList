@@ -29,16 +29,18 @@
 ---
 
 ```
+├─ .gitignore // /node_modules, /dist(컴파일된 js파일용 폴더)
 ├─ index.html
 ├─ src
-│  ├─ date.js // show today's date
-│  └─ todolist // control todolist items
-│     ├─ completeItem.js  // complete to do item
-│     ├─ countingItem.js  // counting to do item
-│     ├─ createItem.js  // create to do item
-│     ├─ deleteItem.js  // delte to do or done item
-│     └─ updateItem.js  // update to do item
-└─ style.css
+│  ├─ date.ts // show today's date
+│  └─ todolist  // control todolist items
+│     ├─ completeItem.ts  // complete to do item
+│     ├─ countingItem.ts  // counting to do item
+│     ├─ createItem.ts  // create to do item
+│     ├─ deleteItem.ts  // delte to do or done item
+│     └─ updateItem.ts  // update to do item
+├─ style.css
+└─ yarn.lock, package.json, tsconfig.json, README.md ...
 ```
 
 **LiveServer를 통해 실행 가능합니다**
@@ -77,20 +79,29 @@ _완료된 할 일은 수정이 불가하며 완료 해제 및 삭제만 가능_
 
 2. 1번과 같은 함수 분리로 event처리 시 다른 event에 영향받지 않고 원하는 동작만 가능하게 함
 
+==> 중복 코드가 상당히 많음을 인지하고 함수를 생성해 중복 코드 최소화와 event내에 기능 직접 명시가 아닌 함수 호출 구조로 변경(아직 update는 제외,,^^)
+함수로 관리 시 동일 기능 코드의 수정에서 한 번의 수정으로 모두에게 예외없이 동일한 적용이 가능하며 event 종속 방지됨
+
 3. countTodo()에서 listitem개수 세는 방식 "querySelectorAll"로 수정해 다른 엘리먼트가 추가돼도 해당 엘리먼트만 카운팅하도록 변경
 
-4. update to do 시 add to do와 동일하게 빈 값 허용X
+4. complete시의 list item에서 update 버튼을 children이 아닌 querySelector로 조작하게 변경
 
-5. list item에서 update 버튼을 children이 아닌 querySelector로 조작하게 변경
+=>문서 자체에서 자식 노드에 변경이 있을 시 의도하지 않은 결과가 초래될 수 있음. querySelector를 이용해 특정 자식 노드 선택을 id값을 통해 할 수 있게 함
+
+5. update to do 시 add to do와 동일하게 빈 값 허용X
 
 6. 기능별 파일 분리 및 폴더 구조 변경
 
 ---
 
-수정 필요한 부분
+수정, 공부 필요한 부분
 
 - update 부분 함수로 분리(event함수 간략화) / parentnode사용과 childnode 사용 다른 방식으로 접근해 줄이기
 
-- typeScript로 변환
+- typeScript로 변환 -> 타입 단언 지양 but 어떻게 선언? , 어떤 type으로 지정해야하나? 의 어려움
+
+- delete시 parentnode 사용 지양 방식으로 변경
+
+- webpack 적용
 
 ---

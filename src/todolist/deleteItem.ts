@@ -1,7 +1,9 @@
 // remove list item
-const removeTodoItem = (e) => {
-  if (e.target.id === "del-btn") {
-    e.currentTarget.querySelector("#todo-item").remove();
+const removeTodoItem = (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+  const parentTarget = target.parentNode as HTMLElement;
+  if (target.id === "del-btn") {
+    parentTarget.remove();
     countTodo();
   }
 };

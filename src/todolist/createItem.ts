@@ -1,9 +1,9 @@
-const todoInput = document.getElementById("input-box");
-const todoAdd = document.getElementById("add-btn");
-const todoBox = document.getElementById("list-items");
+const todoInput = document.getElementById("input-box") as HTMLInputElement;
+const todoAdd = document.getElementById("add-btn") as HTMLButtonElement;
+const todoBox = document.getElementById("list-items") as HTMLElement;
 
 // create list item update,delete button
-const createBtn = (parentItem) => {
+const createBtn = (parentItem: HTMLElement) => {
   const updateBtn = document.createElement("button");
   const deletebtn = document.createElement("button");
   const updatebtnValue = document.createTextNode("🖋");
@@ -23,7 +23,7 @@ const createListItem = () => {
   listitem.setAttribute("id", "todo-item");
   listitem.appendChild(listvalue);
   listitem.classList.add("noncompleted");
-  todoBox.appendChild(listitem);
+  todoBox?.appendChild(listitem);
   createBtn(listitem);
   todoInput.value = "";
 };
